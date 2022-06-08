@@ -58,4 +58,33 @@
         }
         return false;
     }
+
+    //? Delete
+    public bool DeleteExistingContent(StreamingContent content)
+    {
+        bool deleteResult = _contentDirectory.Remove(content);
+        return deleteResult;
+    }
+
+    //? Read - Get Content By Genre
+    public List<StreamingContent> GetStreamingContentByGenre(GenreType type)
+    {
+        var genreList = new List<StreamingContent>();
+
+        foreach (var content in _contentDirectory)
+        {
+            if (content.TypeOfGenre == type)
+            {
+                genreList.Add(content);
+            }
+        }
+        return genreList;
+    }
+
+    /*
+    NOTE: CHALLENGES
+        - Get by other parameters
+        - Get by MaturityRating
+        - Get by family friendly
+    */
 }
