@@ -38,4 +38,24 @@
         }
         return null;
     }
+
+    //? Update - By Title
+    // This update will clear the previous values
+    public bool UpdateExistingContent(string originalTitle, StreamingContent newContent)
+    {
+        // Use a helper method (GetContentByTitle)
+        StreamingContent oldContent = GetContentByTitle(originalTitle);
+
+        // Check if oldContent actually exists
+        if (oldContent != null)
+        {
+            oldContent.Title = newContent.Title;
+            oldContent.Description = newContent.Description;
+            oldContent.StarRating = newContent.StarRating;
+            oldContent.TypeOfGenre = newContent.TypeOfGenre;
+
+            return true;
+        }
+        return false;
+    }
 }
