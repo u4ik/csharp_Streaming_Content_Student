@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\StreamingContent.Repository\StreamingContent.Repository.csproj" />
+    <ProjectReference Include="..\..\src\StreamingContent.Data\StreamingContent.Data.csproj" />
+  </ItemGroup>
+
 </Project>

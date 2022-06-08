@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NNJZ963ZpGUsogoXMKpOjXZhQ+/KMfF9hPqRKJZz89Irn+zHN7d5atTVnIB8TnveVKAjQiqH46b10wrtt0LaxQ==",
+  "dgSpecHash": "Qb+rL0GeMFy3rfK4aCmitBvUrTqy6CQSeEgShKSrd9+feM8x7LtZxWjmWsHGRdLYkC/IWzd/v9pAPSNKxFGy5A==",
   "success": true,
   "projectFilePath": "E:\\Coding\\EFA\\Cohorts\\FD143\\dotnetprojects\\streamingContent\\tests\\StreamingContentRepository.Tests\\StreamingContentRepository.Tests.csproj",
   "expectedPackageFiles": [
