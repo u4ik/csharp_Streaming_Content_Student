@@ -70,7 +70,6 @@
     public List<StreamingContent> GetStreamingContentByGenre(GenreType type)
     {
         var genreList = new List<StreamingContent>();
-
         foreach (var content in _contentDirectory)
         {
             if (content.TypeOfGenre == type)
