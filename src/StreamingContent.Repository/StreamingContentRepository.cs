@@ -2,7 +2,7 @@
 {
     // This will be our FAKE DB
     // Allow us to interact with it, and to utilize CRUD methods
-    private readonly List<StreamingContent> _contentDirectory = new List<StreamingContent>();
+    protected readonly List<StreamingContent> _contentDirectory = new List<StreamingContent>();
 
     //? Create
     public bool AddContentToDirectory(StreamingContent content)
