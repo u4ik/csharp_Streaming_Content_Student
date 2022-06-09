@@ -17,7 +17,7 @@ public class SC_REPO_TestingSite
         _repo = new StreamingContentRepository();
         _repo.AddContentToDirectory(_content);
     }
-
+    //* TESTING CRUD METHODS, which exist in our Repository
     //? CREATE
     [Fact]
     public void AddToDirectory_ShouldGetCorrectBoolean()
@@ -90,5 +90,17 @@ public class SC_REPO_TestingSite
         Assert.True(updatedResult);
     }
 
+    //? DELETE
+    [Fact]
+    public void DeleteExistingContent_ShouldReturnTrue()
+    {
+        //? Arrange
+        StreamingContent content = _repo.GetContentByTitle("Rubber");
 
+        //? Act
+        bool removeResult = _repo.DeleteExistingContent(content);
+
+        //? Assert
+        Assert.True(removeResult);
+    }
 }
