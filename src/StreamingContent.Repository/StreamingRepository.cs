@@ -56,4 +56,23 @@ public class StreamingRepository : StreamingContentRepository
         var allShows = _contentDirectory.Where(s => s is Show).Select(s => new Show());
         return allShows.ToList();
     }
+
+    public List<Movie> GetAllMovies()
+    {
+        // Traditional Way
+        // var allMovies = new List<Movie>();
+        // foreach (var m in _contentDirectory)
+        // {
+        //     if (m is Movie)
+        //     {
+        //         allMovies.Add((Movie)m);
+        //     }
+        // }
+        // return allMovies;
+
+        // L.I.N.Q
+        return _contentDirectory.Where(m => m is Movie).Select(m => new Movie()).ToList();
+    }
+
+
 }
