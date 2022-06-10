@@ -48,7 +48,7 @@ public class ProgramUI
                     break;
                 case "3":
                 case "three":
-                    // CreateNewStreamingContent();
+                    CreateNewStreamingContent();
                     break;
                 case "4":
                 case "four":
@@ -73,6 +73,146 @@ public class ProgramUI
         }
 
     }
+
+    private void CreateNewStreamingContent()
+    {
+        Console.Clear();
+
+        StreamingContent content = new StreamingContent();
+
+        System.Console.WriteLine("Please enter a title: ");
+        content.Title = Console.ReadLine();
+
+        System.Console.WriteLine("Please enter a description: ");
+        content.Description = Console.ReadLine();
+
+        System.Console.WriteLine("Please enter a star rating (1-10): ");
+        content.StarRating = double.Parse(Console.ReadLine());
+
+        // GiveMeAMaturityRating is my helper method 
+        content.MaturityRating = GiveMeAMaturityRating(content);
+
+        System.Console.WriteLine("Select a Genre: \n" +
+        "1. Horror\n" +
+        "2. RomCom\n" +
+        "3. SciFi \n" +
+        "4. Documentary \n" +
+        "5. Drama \n" +
+        "6. Action\n"
+        );
+
+        string genreInput = Console.ReadLine();
+        int genreId = int.Parse(genreInput);
+        content.TypeOfGenre = (GenreType)genreId;
+
+        System.Console.WriteLine("Is this a: \n" +
+        "1. Movie\n" +
+        "2. Show\n"
+        );
+
+        var streamingContentValue = ConvertMe(content);
+        System.Console.WriteLine($"Streaming Content is now of type {streamingContentValue.GetType().Name}");
+
+        bool isSuccessfull = _sRepo.AddContentToDirectory(streamingContentValue);
+        if (isSuccessfull)
+        {
+            System.Console.WriteLine($"The content named: {streamingContentValue.Title} WAS ADDED to the DB");
+        }
+        else
+        {
+            System.Console.WriteLine($"The content named: {streamingContentValue.Title} WAS NOT ADDED to the DB");
+        }
+
+
+        PauseUntilKeyPress();
+    }
+
+    private StreamingContent ConvertMe(StreamingContent content)
+    {
+        string userInputSC_contentType = Console.ReadLine();
+        switch (userInputSC_contentType)
+        {
+            case "1":
+                System.Console.WriteLine("--Movie Creation Menu--");
+                System.Console.WriteLine("Please enter this movie's runtime.");
+                double movieRuntime = double.Parse(Console.ReadLine());
+                var movie = new Movie(
+                    content.Title,
+                     content.Description,
+                      content.StarRating,
+                       content.MaturityRating,
+                        content.TypeOfGenre,
+                         movieRuntime);
+                return movie;
+            case "2":
+                System.Console.WriteLine("--Show Creation Menu--");
+
+                System.Console.WriteLine("Please enter the Season Count:");
+                int seasonCount = int.Parse(Console.ReadLine());
+
+                System.Console.WriteLine("Please enter the Season Episode Count: ");
+                int episodeCount = int.Parse(Console.ReadLine());
+
+                System.Console.WriteLine("Please enter a average runtime.");
+                double showAvgTime = double.Parse(Console.ReadLine());
+
+                return new Show(seasonCount, episodeCount, showAvgTime, content.Title,
+                     content.Description,
+                      content.StarRating,
+                       content.MaturityRating,
+                        content.TypeOfGenre);
+            default:
+                System.Console.WriteLine("Sorry, invalid selection. Returning Default Type (Streaming Content)");
+                return content;
+        }
+    }
+
+    // Helper Method
+    private MaturityRating GiveMeAMaturityRating(StreamingContent content)
+    {
+        System.Console.WriteLine("Select a Maturity Rating:\n" +
+        "1.G\n" +
+        "2.PG\n" +
+        "3.PG 13\n" +
+        "4.R\n" +
+        "5.NC 17\n" +
+        "6.TV Y\n" +
+        "7.TV G\n" +
+        "8.TV PG\n" +
+        "9.TV 14\n" +
+        "10.TV MA\n"
+        );
+
+        string maturityRating = Console.ReadLine();
+
+        switch (maturityRating)
+        {
+            case "1":
+                return MaturityRating.G;
+            case "2":
+                return MaturityRating.PG;
+            case "3":
+                return MaturityRating.PG_13;
+            case "4":
+                return MaturityRating.R;
+            case "5":
+                return MaturityRating.NC_17;
+            case "6":
+                return MaturityRating.TV_Y;
+            case "7":
+                return MaturityRating.TV_G;
+            case "8":
+                return MaturityRating.TV_PG;
+            case "9":
+                return MaturityRating.TV_14;
+            case "10":
+                return MaturityRating.TV_MA;
+            default:
+                System.Console.WriteLine("Invalid selection");
+                return MaturityRating.G;
+        }
+    }
+
     private void ShowContentByTitle()
     {
         Console.Clear();
