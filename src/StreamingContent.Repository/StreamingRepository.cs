@@ -73,6 +73,4 @@ public class StreamingRepository : StreamingContentRepository
         // L.I.N.Q
         return _contentDirectory.Where(m => m is Movie).Select(m => new Movie()).ToList();
     }
-
-
 }

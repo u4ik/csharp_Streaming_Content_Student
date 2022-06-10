@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿ProgramUI ui = new ProgramUI();
+// Create a run method so ProgramUI can be the point of entry
+ui.Run();
