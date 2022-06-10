@@ -12,7 +12,7 @@ public class ProgramUI
     public void Run()
     {
         //? Seed some data
-        // SeedContentList();
+        SeedContentList();
 
         //? Run the application
         RunMenu();
@@ -40,11 +40,11 @@ public class ProgramUI
             {
                 case "1":
                 case "one":
-                    // ShowAllContent();
+                    ShowAllContent();
                     break;
                 case "2":
                 case "two":
-                    // ShowContentByTitle();
+                    ShowContentByTitle();
                     break;
                 case "3":
                 case "three":
@@ -73,7 +73,23 @@ public class ProgramUI
         }
 
     }
+    private void ShowContentByTitle()
+    {
+        Console.Clear();
+        System.Console.WriteLine("Enter a title:");
+        string title = Console.ReadLine();
+        StreamingContent content = _sRepo.GetContentByTitle(title);
+        if (content != null)
+        {
+            DisplayContent(content);
+        }
+        else
+        {
+            System.Console.WriteLine("Invalid title. Could not find a result");
+        }
 
+        PauseUntilKeyPress();
+    }
     private void PauseUntilKeyPress()
     {
         System.Console.WriteLine("Press any key to continue");
@@ -90,7 +106,7 @@ public class ProgramUI
         foreach (StreamingContent content in ListOfContent)
         {
             // Helper Method To Display Content
-            // DisplayContent(content);
+            DisplayContent(content);
         }
 
         PauseUntilKeyPress();
@@ -106,5 +122,19 @@ public class ProgramUI
         $"Family Friendly: {content.IsFamilyFriendly}\n" +
         $"Rating: {content.MaturityRating}\n"
         );
+    }
+
+    private void SeedContentList()
+    {
+        // Creating our content for seeding...
+        StreamingContent rubber = new StreamingContent("Rubber", "Tire that kills people", 5.8, MaturityRating.R, GenreType.Horror);
+        StreamingContent interstellar = new StreamingContent("Interstellar", "A movie about space", 10, MaturityRating.PG_13, GenreType.SciFi);
+        StreamingContent starWars = new StreamingContent("Star Wars", "Jar Jar saves the world!", 9.2, MaturityRating.PG_13, GenreType.SciFi);
+
+        // Add the content above to our repository 
+        _sRepo.AddContentToDirectory(rubber);
+        _sRepo.AddContentToDirectory(interstellar);
+        _sRepo.AddContentToDirectory(starWars);
+
     }
 }
