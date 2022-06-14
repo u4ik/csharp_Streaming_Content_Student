@@ -212,7 +212,6 @@ public class ProgramUI
                 return MaturityRating.G;
         }
     }
-
     private void ShowContentByTitle()
     {
         Console.Clear();
@@ -235,7 +234,6 @@ public class ProgramUI
         System.Console.WriteLine("Press any key to continue");
         Console.ReadKey();
     }
-
     private void ShowAllContent()
     {
         Console.Clear();
@@ -277,4 +275,71 @@ public class ProgramUI
         _sRepo.AddContentToDirectory(starWars);
 
     }
+
+    private void UpdateExistingContent()
+    {
+        Console.Clear();
+
+        System.Console.WriteLine("Please enter a title:");
+        string userInputTitle = Console.ReadLine();
+
+        StreamingContent oldContent = _sRepo.GetContentByTitle(userInputTitle);
+
+        if (oldContent != null)
+        {
+            Console.Clear();
+
+            StreamingContent newContent = new StreamingContent();
+            System.Console.WriteLine("Please enter in a new title:");
+            newContent.Title = Console.ReadLine();
+
+            System.Console.WriteLine("Please enter in a new description:");
+            newContent.Description = Console.ReadLine();
+
+            System.Console.WriteLine("Please enter in a new star rating (1-10)");
+            newContent.StarRating = double.Parse(Console.ReadLine());
+
+            newContent.MaturityRating = GiveMeAMaturityRating(newContent);
+
+            System.Console.WriteLine("Select a new genre: \n" +
+            "1. Horror \n" +
+            "2. RomCom \n" +
+            "3. SciFi \n" +
+            "4. Documentary \n" +
+            "5. Drama \n" +
+            "6. Action \n");
+
+            string genreInput = Console.ReadLine();
+            int genreId = int.Parse(genreInput);
+
+            newContent.TypeOfGenre = (GenreType)genreId;
+
+            System.Console.WriteLine("Is this a: \n" +
+            "1. Movie \n" +
+            "2. Show"
+            );
+
+            var streamingContentValue = ConvertMe(newContent);
+            System.Console.WriteLine($"Streaming Content is now of type: {streamingContentValue.GetType().Name}");
+
+            bool isSuccessful = _sRepo.UpdateExistingContent(oldContent.Title, streamingContentValue);
+
+            if (isSuccessful)
+            {
+                System.Console.WriteLine($"{newContent.Title} has been updated!");
+            }
+            else
+            {
+                System.Console.WriteLine("ERROR!!!");
+            }
+
+
+
+        }
+
+
+
+        PauseUntilKeyPress();
+    }
+
 }
