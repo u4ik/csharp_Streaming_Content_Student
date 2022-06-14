@@ -52,11 +52,11 @@ public class ProgramUI
                     break;
                 case "4":
                 case "four":
-                    // UpdateExistingContent();
+                    UpdateExistingContent();
                     break;
                 case "5":
                 case "five":
-                    // RemoveContentFromList();
+                    RemoveContentFromList();
                     break;
                 case "6":
                 case "six":
@@ -72,6 +72,48 @@ public class ProgramUI
             }
         }
 
+    }
+
+    private void RemoveContentFromList()
+    {
+        Console.Clear();
+
+        List<StreamingContent> contentList = _sRepo.GetAllContent();
+
+        if (contentList.Count() > 0)
+        {
+            System.Console.WriteLine("Which would you like to remove?");
+
+            int count = 0;
+
+            foreach (var content in contentList)
+            {
+                count++;
+                System.Console.WriteLine($"{count}. {content.Title}");
+            }
+
+            int targetContentId = int.Parse(Console.ReadLine());
+            int targetIndex = targetContentId - 1;
+
+            if (targetIndex >= 0 && targetIndex < contentList.Count)
+            {
+                StreamingContent desiredContent = contentList[targetIndex];
+                if (_sRepo.DeleteExistingContent(desiredContent))
+                {
+                    System.Console.WriteLine($"{desiredContent.Title} successfully removed!");
+                }
+                else
+                {
+                    System.Console.WriteLine("I'm sorry, unable to remove content!");
+                }
+            }
+            else
+            {
+                System.Console.WriteLine("No content found that has that ID");
+            }
+        }
+
+        PauseUntilKeyPress();
     }
 
     private void CreateNewStreamingContent()
